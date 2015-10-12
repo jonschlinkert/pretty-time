@@ -6,7 +6,7 @@ var istanbul = require('gulp-istanbul');
 var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
 
-var lint = ['index.js'];
+var lint = ['index.js', 'utils.js'];
 
 gulp.task('coverage', function () {
   return gulp.src(lint)
