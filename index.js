@@ -30,7 +30,7 @@ function pretty(time, smallest, digits) {
     smallest = null;
   }
 
-  var num = (+time[0] * 1e9) + +time[1];
+  var num = ((+time[0]) * 1e9) + (+time[1]);
   var res = '';
   var prev;
 
@@ -58,7 +58,6 @@ function pretty(time, smallest, digits) {
     num -= (inc * step);
     res += inc + uom + ' ';
   }
-
   return res.trim();
 }
 

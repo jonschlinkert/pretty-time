@@ -1,5 +1,3 @@
-'use strict';
-
 require('mocha');
 var assert = require('assert');
 var utils = require('./utils');
@@ -33,12 +31,12 @@ describe('pretty', function () {
     assert.equal(pretty(time, 'μs'), '1w 6d 21h 31m 48s 795ms 428μs');
     assert.equal(pretty(time, 'ns'), '1w 6d 21h 31m 48s 795ms 428μs 88ns');
     assert.equal(pretty([0, 795428088], 'ms'), '795ms');
-    assert.equal(pretty([0, 000428088], 'ms'), '0ms');
-    assert.equal(pretty([0, 000428088], 'ns'), '428μs 88ns');
-    assert.equal(pretty([0, 000528088], 'ms'), '1ms');
-    assert.equal(pretty([0, 000428088], 'ms', 1), '0.4ms');
-    assert.equal(pretty([0, 000628088], 'ms', 1), '0.6ms');
-    assert.equal(pretty([0, 000428088], 'ms', 2), '0.43ms');
+    assert.equal(pretty([0, 428088], 'ms'), '0ms');
+    assert.equal(pretty([0, 428088], 'ns'), '428μs 88ns');
+    assert.equal(pretty([0, 528088], 'ms'), '1ms');
+    assert.equal(pretty([0, 428088], 'ms', 1), '0.4ms');
+    assert.equal(pretty([0, 628088], 'ms', 1), '0.6ms');
+    assert.equal(pretty([0, 428088], 'ms', 2), '0.43ms');
     assert.equal(pretty([0, 795946488], 'ms', 2), '795.95ms');
     assert.equal(pretty([0, 795946488], 'μs'), '795ms 946μs');
     assert.equal(pretty([0, 795428088], 'μs'), '795ms 428μs');
@@ -49,13 +47,14 @@ describe('pretty', function () {
     assert.equal(pretty([800708, 795428088]), '1w');
     assert.equal(pretty([400708, 795428088]), '5d');
     assert.equal(pretty([70708, 795428088]), '20h');
+    assert.equal(pretty([12708, 795428088]), '4h');
     assert.equal(pretty([3708, 795428088]), '1h');
     assert.equal(pretty([208, 795428088]), '3m');
     assert.equal(pretty([20, 795428088]), '21s');
     assert.equal(pretty([0, 795428088]), '795ms');
-    assert.equal(pretty([0, 000428088]), '428μs');
-    assert.equal(pretty([0, 000000088]), '88ns');
-    assert.equal(pretty([0, 000000018]), '18ns');
+    assert.equal(pretty([0, 428088]), '428μs');
+    assert.equal(pretty([0, 88]), '88ns');
+    assert.equal(pretty([0, 18]), '18ns');
   });
 
   it('should work when numbers are strings', function () {
@@ -82,7 +81,7 @@ describe('pretty', function () {
     assert.equal(pretty([208, 795428088], 2), '3.48m');
     assert.equal(pretty([20, 795428088], 2), '20.80s');
     assert.equal(pretty([0, 795428088], 2), '795.43ms');
-    assert.equal(pretty([0, 000428088], 2), '428.09μs');
+    assert.equal(pretty([0, 428088], 2), '428.09μs');
   });
 
   it('should support rounding as the third arg:', function () {
