@@ -1,6 +1,6 @@
 {
   "name": "pretty-time",
-  "description": "The most interesting project in the world > Verb",
+  "description": "Easily format the time from node.js `process.hrtime`. Works with timescales ranging from weeks to nanoseconds.",
   "version": "0.1.0",
   "homepage": "https://github.com/jonschlinkert/pretty-time",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
@@ -30,5 +30,34 @@
     "jshint-stylish": "^2.0.1",
     "mocha": "*"
   },
-  "keywords": []
+  "keywords": [
+    "convert",
+    "date",
+    "format",
+    "formatting",
+    "hour",
+    "hrtime",
+    "micro",
+    "milli",
+    "minute",
+    "nano",
+    "nanosecond",
+    "pretty",
+    "second",
+    "time",
+    "week"
+  ],
+  "verb": {
+    "related": {
+      "list": [
+        "time-stamp",
+        "timescale",
+        "o-clock",
+        "seconds",
+        "week",
+        "weekday",
+        "year"
+      ]
+    }
+  }
 }

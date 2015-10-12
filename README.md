@@ -1,6 +1,6 @@
 # pretty-time [![NPM version](https://badge.fury.io/js/pretty-time.svg)](http://badge.fury.io/js/pretty-time)  [![Build Status](https://travis-ci.org/jonschlinkert/pretty-time.svg)](https://travis-ci.org/jonschlinkert/pretty-time)
 
-> Easily format the time from node.js process.hrtime. Works with timescales from from weeks to nanoseconds.
+> Easily format the time from node.js `process.hrtime`. Works with timescales ranging from weeks to nanoseconds.
 
 ## Install
 
