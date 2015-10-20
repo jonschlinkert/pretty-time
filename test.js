@@ -15,6 +15,16 @@ describe('pretty', function () {
     }
   });
 
+  it('should throw an error when invalid arrays are passed:', function () {
+    try {
+      pretty([0,1,2]);
+    } catch(err) {
+      assert(err);
+      assert(err.message);
+      assert(err.message === 'expected an array from process.hrtime()');
+    }
+  });
+
   it('should support hrtime:', function () {
     var start = process.hrtime();
     var time = process.hrtime(start);
