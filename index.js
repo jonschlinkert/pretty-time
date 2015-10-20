@@ -8,6 +8,7 @@
 'use strict';
 
 var isNumber = require('is-number');
+var nano = require('nanoseconds');
 var utils = require('./utils');
 var scale = {
   'w': 6048e11,
@@ -21,7 +22,10 @@ var scale = {
 };
 
 function pretty(time, smallest, digits) {
-  if (!Array.isArray(time) || time.length !== 2) {
+  if (!isNumber(time) && !Array.isArray(time)) {
+    throw new TypeError('expected an array or number in nanoseconds');
+  }
+  if (Array.isArray(time) && time.length !== 2) {
     throw new TypeError('expected an array from process.hrtime()');
   }
 
@@ -30,7 +34,7 @@ function pretty(time, smallest, digits) {
     smallest = null;
   }
 
-  var num = ((+time[0]) * 1e9) + (+time[1]);
+  var num = isNumber(time) ? time : nano(time);
   var res = '';
   var prev;
 
