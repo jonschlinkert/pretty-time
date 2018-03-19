@@ -1,7 +1,7 @@
 {
   "name": "pretty-time",
   "description": "Easily format the time from node.js `process.hrtime`. Works with timescales ranging from weeks to nanoseconds.",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/jonschlinkert/pretty-time",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "jonschlinkert/pretty-time",
