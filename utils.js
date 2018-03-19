@@ -1,14 +1,17 @@
-'use strict';
+const isNumber = require('is-number');
 
-var isNumber = require('is-number');
+exports.scale = {
+  'w': 6048e11,
+  'd': 864e11,
+  'h': 36e11,
+  'm': 6e10,
+  's': 1e9,
+  'ms': 1e6,
+  'μs': 1e3,
+  'ns': 1,
+};
 
-/**
- * Expose `utils`
- */
-
-var utils = module.exports;
-
-utils.regex = {
+exports.regex = {
  'w': /^(w((ee)?k)?s?)$/,
  'd': /^(d(ay)?s?)$/,
  'h': /^(h((ou)?r)?s?)$/,
@@ -19,14 +22,11 @@ utils.regex = {
  'ns': /^(nano(second)?s?|ns?)$/,
 };
 
-utils.isSmallest = function(uom, unit) {
-  return utils.regex[uom].test(unit);
+exports.isSmallest = function(uom, unit) {
+  return exports.regex[uom].test(unit);
 };
 
-utils.round = function(num, digits) {
-  num = Math.abs(num);
-  if (isNumber(digits)) {
-    return num.toFixed(digits);
-  }
-  return Math.round(num);
+exports.round = function(num, digits) {
+  const n = Math.abs(num);
+  return isNumber(digits) ? n.toFixed(digits) : Math.round(n);
 };

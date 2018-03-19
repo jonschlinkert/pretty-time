@@ -1,44 +1,34 @@
+'use strict';
+
 require('mocha');
-var nano = require('nanoseconds');
-var assert = require('assert');
-var utils = require('./utils');
-var pretty = require('./');
+const nano = require('nanoseconds');
+const assert = require('assert');
+const utils = require('./utils');
+const pretty = require('.');
 
-describe('pretty', function () {
-  it('should throw an error when invalid args are passed:', function () {
-    try {
-      pretty();
-    } catch(err) {
-      assert(err);
-      assert(err.message);
-      assert(err.message === 'expected an array or number in nanoseconds');
-    }
+describe('pretty', function() {
+  it('should throw an error when invalid args are passed:', function() {
+    assert.throws(() => pretty(), /expected an array or number in nanoseconds/);
   });
 
-  it('should throw an error when invalid arrays are passed:', function () {
-    try {
-      pretty([0,1,2]);
-    } catch(err) {
-      assert(err);
-      assert(err.message);
-      assert(err.message === 'expected an array from process.hrtime()');
-    }
+  it('should throw an error when invalid arrays are passed:', function() {
+    assert.throws(() => pretty([0,1,2]), /expected an array from process\.hrtime\(\)/);
   });
 
-  it('should support hrtime:', function () {
-    var start = process.hrtime();
-    var time = process.hrtime(start);
+  it('should support hrtime:', function() {
+    const start = process.hrtime();
+    const time = process.hrtime(start);
     assert(typeof pretty(time) === 'string');
   });
 
-  it('should support nanoseconds:', function () {
-    var start = process.hrtime();
-    var time = process.hrtime(start);
+  it('should support nanoseconds:', function() {
+    const start = process.hrtime();
+    const time = process.hrtime(start);
     assert(typeof pretty(nano(time)) === 'string');
   });
 
-  it('should support time increment as second arg:', function () {
-    var time = [1200708, 795428088];
+  it('should support time increment as second arg:', function() {
+    const time = [1200708, 795428088];
     assert.equal(pretty(time, 'w'), '2w');
     assert.equal(pretty(time, 'd'), '1w 6d');
     assert.equal(pretty(time, 'h'), '1w 6d 22h');
@@ -78,7 +68,7 @@ describe('pretty', function () {
     assert.equal(pretty(nano([0, 795428088]), 'μs'), '795ms 428μs');
   });
 
-  it('should round to the closest increment', function () {
+  it('should round to the closest increment', function() {
     assert.equal(pretty([1200708, 795428088]), '2w');
     assert.equal(pretty([800708, 795428088]), '1w');
     assert.equal(pretty([400708, 795428088]), '5d');
@@ -106,7 +96,7 @@ describe('pretty', function () {
     assert.equal(pretty(nano([0, 18])), '18ns');
   });
 
-  it('should work when numbers are strings', function () {
+  it('should work when numbers are strings', function() {
     assert.equal(pretty(['1200708', '795428088']), '2w');
     assert.equal(pretty(['800708', '795428088']), '1w');
     assert.equal(pretty(['400708', '795428088']), '5d');
@@ -134,7 +124,7 @@ describe('pretty', function () {
     assert.equal(pretty(''+nano(['0', '000000001'])), '1ns');
   });
 
-  it('should round the given number of digits', function () {
+  it('should round the given number of digits', function() {
     assert.equal(pretty([1200708, 795428088], 2), '1.99w');
     assert.equal(pretty([800708, 795428088], 2), '1.32w');
     assert.equal(pretty([400708, 795428088], 2), '4.64d');
@@ -156,8 +146,8 @@ describe('pretty', function () {
     assert.equal(pretty(nano([0, 428088]), 2), '428.09μs');
   });
 
-  it('should support rounding as the third arg:', function () {
-    var time = [1281708, 795428088];
+  it('should support rounding as the third arg:', function() {
+    const time = [1281708, 795428088];
     assert.equal(pretty(time, 'w'), '2w');
     assert.equal(pretty(time, 'w', 1), '2.1w');
     assert.equal(pretty(time, 'w', 2), '2.12w');
@@ -202,9 +192,9 @@ describe('pretty', function () {
   });
 });
 
-describe('regex', function () {
-  var re = utils.regex;
-  it('should match nanoseconds:', function () {
+describe('regex', function() {
+  const re = utils.regex;
+  it('should match nanoseconds:', function() {
     assert(re.ns.test('nanoseconds'));
     assert(re.ns.test('nanosecond'));
     assert(re.ns.test('nano'));
@@ -212,14 +202,14 @@ describe('regex', function () {
     assert(re.ns.test('n'));
   });
 
-  it('should match microseconds:', function () {
+  it('should match microseconds:', function() {
     assert(re.μs.test('microseconds'));
     assert(re.μs.test('microsecond'));
     assert(re.μs.test('micro'));
     assert(re.μs.test('μs'));
   });
 
-  it('should match milliseconds:', function () {
+  it('should match milliseconds:', function() {
     assert(re.ms.test('milliseconds'));
     assert(re.ms.test('millisecond'));
     assert(re.ms.test('milli'));
@@ -228,7 +218,7 @@ describe('regex', function () {
     assert(!re.ms.test('ml'));
   });
 
-  it('should match seconds:', function () {
+  it('should match seconds:', function() {
     assert(re.s.test('seconds'));
     assert(re.s.test('second'));
     assert(re.s.test('sec'));
@@ -238,20 +228,20 @@ describe('regex', function () {
     assert(!re.s.test('ms'));
   });
 
-  it('should match hours:', function () {
+  it('should match hours:', function() {
     assert(re.h.test('hours'));
     assert(re.h.test('hour'));
     assert(re.h.test('hr'));
     assert(re.h.test('h'));
   });
 
-  it('should match days:', function () {
+  it('should match days:', function() {
     assert(re.d.test('days'));
     assert(re.d.test('day'));
     assert(re.d.test('d'));
   });
 
-  it('should match weeks:', function () {
+  it('should match weeks:', function() {
     assert(re.w.test('weeks'));
     assert(re.w.test('week'));
     assert(re.w.test('wk'));

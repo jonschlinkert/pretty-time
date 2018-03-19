@@ -1,27 +1,17 @@
 /*!
  * pretty-time <https://github.com/jonschlinkert/pretty-time>
  *
- * Copyright (c) 2015, Jon Schlinkert.
- * Licensed under the MIT License.
+ * Copyright (c) 2015, 2018, Jon Schlinkert.
+ * Released under the MIT License.
  */
 
 'use strict';
 
-var isNumber = require('is-number');
-var nano = require('nanoseconds');
-var utils = require('./utils');
-var scale = {
-  'w': 6048e11,
-  'd': 864e11,
-  'h': 36e11,
-  'm': 6e10,
-  's': 1e9,
-  'ms': 1e6,
-  'μs': 1e3,
-  'ns': 1,
-};
+const nano = require('nanoseconds');
+const isNumber = require('is-number');
+const utils = require('./utils');
 
-function pretty(time, smallest, digits) {
+module.exports = (time, smallest, digits) => {
   if (!isNumber(time) && !Array.isArray(time)) {
     throw new TypeError('expected an array or number in nanoseconds');
   }
@@ -34,13 +24,13 @@ function pretty(time, smallest, digits) {
     smallest = null;
   }
 
-  var num = isNumber(time) ? time : nano(time);
-  var res = '';
-  var prev;
+  let num = isNumber(time) ? time : nano(time);
+  let res = '';
+  let prev;
 
-  for (var uom in scale) {
-    var step = scale[uom];
-    var inc = num / step;
+  for (const uom of Object.keys(utils.scale)) {
+    const step = utils.scale[uom];
+    let inc = num / step;
 
     if (smallest && utils.isSmallest(uom, smallest)) {
       inc = utils.round(inc, digits);
@@ -62,11 +52,6 @@ function pretty(time, smallest, digits) {
     num -= (inc * step);
     res += inc + uom + ' ';
   }
+
   return res.trim();
-}
-
-/**
- * Expose `pretty`
- */
-
-module.exports = pretty;
+};
