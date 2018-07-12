@@ -1,10 +1,9 @@
 'use strict';
 
 require('mocha');
-const nano = require('nanoseconds');
 const assert = require('assert');
-const utils = require('./utils');
 const pretty = require('.');
+const { nano, regex } = require('./utils');
 
 describe('pretty', function() {
   it('should throw an error when invalid args are passed:', function() {
@@ -193,58 +192,57 @@ describe('pretty', function() {
 });
 
 describe('regex', function() {
-  const re = utils.regex;
   it('should match nanoseconds:', function() {
-    assert(re.ns.test('nanoseconds'));
-    assert(re.ns.test('nanosecond'));
-    assert(re.ns.test('nano'));
-    assert(re.ns.test('ns'));
-    assert(re.ns.test('n'));
+    assert(regex.ns.test('nanoseconds'));
+    assert(regex.ns.test('nanosecond'));
+    assert(regex.ns.test('nano'));
+    assert(regex.ns.test('ns'));
+    assert(regex.ns.test('n'));
   });
 
   it('should match microseconds:', function() {
-    assert(re.μs.test('microseconds'));
-    assert(re.μs.test('microsecond'));
-    assert(re.μs.test('micro'));
-    assert(re.μs.test('μs'));
+    assert(regex.μs.test('microseconds'));
+    assert(regex.μs.test('microsecond'));
+    assert(regex.μs.test('micro'));
+    assert(regex.μs.test('μs'));
   });
 
   it('should match milliseconds:', function() {
-    assert(re.ms.test('milliseconds'));
-    assert(re.ms.test('millisecond'));
-    assert(re.ms.test('milli'));
-    assert(re.ms.test('ms'));
-    assert(!re.ms.test('mil'));
-    assert(!re.ms.test('ml'));
+    assert(regex.ms.test('milliseconds'));
+    assert(regex.ms.test('millisecond'));
+    assert(regex.ms.test('milli'));
+    assert(regex.ms.test('ms'));
+    assert(!regex.ms.test('mil'));
+    assert(!regex.ms.test('ml'));
   });
 
   it('should match seconds:', function() {
-    assert(re.s.test('seconds'));
-    assert(re.s.test('second'));
-    assert(re.s.test('sec'));
-    assert(re.s.test('s'));
-    assert(!re.s.test('ns'));
-    assert(!re.s.test('ss'));
-    assert(!re.s.test('ms'));
+    assert(regex.s.test('seconds'));
+    assert(regex.s.test('second'));
+    assert(regex.s.test('sec'));
+    assert(regex.s.test('s'));
+    assert(!regex.s.test('ns'));
+    assert(!regex.s.test('ss'));
+    assert(!regex.s.test('ms'));
   });
 
   it('should match hours:', function() {
-    assert(re.h.test('hours'));
-    assert(re.h.test('hour'));
-    assert(re.h.test('hr'));
-    assert(re.h.test('h'));
+    assert(regex.h.test('hours'));
+    assert(regex.h.test('hour'));
+    assert(regex.h.test('hr'));
+    assert(regex.h.test('h'));
   });
 
   it('should match days:', function() {
-    assert(re.d.test('days'));
-    assert(re.d.test('day'));
-    assert(re.d.test('d'));
+    assert(regex.d.test('days'));
+    assert(regex.d.test('day'));
+    assert(regex.d.test('d'));
   });
 
   it('should match weeks:', function() {
-    assert(re.w.test('weeks'));
-    assert(re.w.test('week'));
-    assert(re.w.test('wk'));
-    assert(re.w.test('w'));
+    assert(regex.w.test('weeks'));
+    assert(regex.w.test('week'));
+    assert(regex.w.test('wk'));
+    assert(regex.w.test('w'));
   });
 });

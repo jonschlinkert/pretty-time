@@ -1,30 +1,29 @@
 /*!
  * pretty-time <https://github.com/jonschlinkert/pretty-time>
  *
- * Copyright (c) 2015, 2018, Jon Schlinkert.
+ * Copyright (c) 2015-2018, present, Jon Schlinkert.
  * Released under the MIT License.
  */
 
 'use strict';
 
-const nano = require('nanoseconds');
-const isNumber = require('is-number');
 const utils = require('./utils');
 
 module.exports = (time, smallest, digits) => {
-  if (!isNumber(time) && !Array.isArray(time)) {
+  const isNumber = /^[0-9]+$/.test(time);
+  if (!isNumber && !Array.isArray(time)) {
     throw new TypeError('expected an array or number in nanoseconds');
   }
   if (Array.isArray(time) && time.length !== 2) {
     throw new TypeError('expected an array from process.hrtime()');
   }
 
-  if (isNumber(smallest)) {
+  if (/^[0-9]+$/.test(smallest)) {
     digits = smallest;
     smallest = null;
   }
 
-  let num = isNumber(time) ? time : nano(time);
+  let num = isNumber ? time : utils.nano(time);
   let res = '';
   let prev;
 

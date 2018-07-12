@@ -20,10 +20,6 @@
   "scripts": {
     "test": "mocha"
   },
-  "dependencies": {
-    "is-number": "^5.0.0",
-    "nanoseconds": "^1.0.0"
-  },
   "devDependencies": {
     "gulp-format-md": "^1.0.0",
     "mocha": "^3.5.3"

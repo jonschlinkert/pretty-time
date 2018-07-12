@@ -1,4 +1,4 @@
-const isNumber = require('is-number');
+exports.nano = time => +time[0] * 1e9 + +time[1];
 
 exports.scale = {
   'w': 6048e11,
@@ -28,5 +28,5 @@ exports.isSmallest = function(uom, unit) {
 
 exports.round = function(num, digits) {
   const n = Math.abs(num);
-  return isNumber(digits) ? n.toFixed(digits) : Math.round(n);
+  return /[0-9]/.test(digits) ? n.toFixed(digits) : Math.round(n);
 };
